@@ -2,6 +2,7 @@
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class IntervalTest {
@@ -20,12 +21,31 @@ public class IntervalTest {
         assertTrue ("C has to be greater then D", c.compareTo(d) > 0);
         assertTrue ("C has to be greater then A", a.compareTo(c) < 0);
         assertTrue ("C has to be greater then A", c.compareTo(a) > 0);
-
     }
 
     @Test
     public void testContains() {
+        Interval interval = new Interval (-300, 17);
 
+        //minimum extreme points
+        assertTrue(interval.contains(-300.0));
+        assertFalse(interval.contains(-300.0000001));
+        assertTrue(interval.contains(-299.9999999));
+
+        //maximum extreme points
+        assertTrue(interval.contains(17.0));
+        assertTrue(interval.contains(0));
+        assertTrue(interval.contains(16.9999999999));
+        assertFalse(interval.contains(17.00000000000001));
+
+        //middle points
+        assertTrue(interval.contains(16));
+        assertTrue(interval.contains(0));
+        assertTrue(interval.contains(-150));
+
+        //out of the interval
+        assertFalse(interval.contains(100));
+        assertFalse(interval.contains(500));
     }
 
     @Test
