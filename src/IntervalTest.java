@@ -5,6 +5,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * This exercise is taken from CTU class "Object Modeling"
+ */
 public class IntervalTest {
 
     @Test
@@ -50,6 +53,67 @@ public class IntervalTest {
 
     @Test
     public void testIntersection() {
+
+        Interval a = new Interval(0, 2);
+        Interval b = new Interval(0, 3);
+        Interval c = new Interval(2, 3);
+        Interval d = new Interval(0.7, 2.7);
+        Interval e = new Interval(3, 4);
+        Interval f = new Interval(0, 5);
+
+        // a:   0----1----2
+        // a:   0----1----2
+        assertEquals(a.intersection(a), new Interval(0, 2));
+
+        // a:   0----1----2
+        // b:   0----1----2----3
+        assertEquals(a.intersection(b), new Interval(0, 2));
+
+
+        // b:   0----1----2----3
+        // a:   0----1----2
+        assertEquals(b.intersection(a), new Interval(0, 2));
+
+
+        // a:   0----1----2
+        // c:             2----3
+        assertEquals(a.intersection(c), new Interval(2, 2));
+
+
+        // c:             2----3
+        // a:   0----1----2
+        assertEquals(c.intersection(a), new Interval(2, 2));
+
+
+        // a:   0----1----2
+        // d:     0.7-----2---2.7
+        assertEquals(a.intersection(d), new Interval(0.7, 2));
+
+        // d:     0.7-----2---2.7
+        // a:   0----1----2
+        assertEquals(d.intersection(a), new Interval(0.7, 2));
+
+
+        // e:                  3----4
+        // f:   0----1----2----3----4----5
+        assertEquals(e.intersection(f), new Interval(3, 4));
+
+
+        // f:   0----1----2----3----4----5
+        // e:                  3----4
+        assertEquals(f.intersection(e), new Interval(3, 4));
+
+
+        // a:   0----1----2
+        // e:                  3----4
+        assertEquals(a.intersection(e), null);
+
+        // e:                  3----4
+        // a:   0----1----2
+        assertEquals(e.intersection(a), null);
+
+        //check null pointer
+        assertEquals(e.intersection(null), null);
 
     }
 

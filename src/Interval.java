@@ -1,5 +1,8 @@
 
 
+/**
+ * This exercise is taken from CTU class "Object Modeling"
+ */
 public class Interval implements Comparable<Interval> {
     /**
      * The begining of the interval
