@@ -89,6 +89,7 @@ public class IntervalTest {
         // d:     0.7-----2---2.7
         assertEquals(a.intersection(d), new Interval(0.7, 2));
 
+
         // d:     0.7-----2---2.7
         // a:   0----1----2
         assertEquals(d.intersection(a), new Interval(0.7, 2));
@@ -108,18 +109,74 @@ public class IntervalTest {
         // e:                  3----4
         assertEquals(a.intersection(e), null);
 
+
         // e:                  3----4
         // a:   0----1----2
         assertEquals(e.intersection(a), null);
 
+
         //check null pointer
         assertEquals(e.intersection(null), null);
-
     }
 
     @Test
     public void testOverlap() {
 
+        Interval a = new Interval(0, 2);
+        Interval b = new Interval(0, 3);
+        Interval c = new Interval(2, 3);
+        Interval d = new Interval(0.7, 2.7);
+        Interval e = new Interval(3, 4);
+        Interval f = new Interval(0, 5);
+
+        // a:   0----1----2
+        // b:   0----1----2----3
+        assertEquals(a.overlap(b), true);
+
+
+        // b:   0----1----2----3
+        // a:   0----1----2
+        assertEquals(b.overlap(a), true);
+
+
+        // a:   0----1----2
+        // c:             2----3
+        assertEquals(a.overlap(c), true);
+
+
+        // c:             2----3
+        // a:   0----1----2
+        assertEquals(c.overlap(a), true);
+
+
+        // a:   0----1----2
+        // d:     0.7-----2---2.7
+        assertEquals(a.overlap(d), true);
+
+
+        // d:     0.7-----2---2.7
+        // a:   0----1----2
+        assertEquals(d.overlap(a), true);
+
+
+        // e:                  3----4
+        // f:   0----1----2----3----4----5
+        assertEquals(e.overlap(f), true);
+
+
+        // f:   0----1----2----3----4----5
+        // e:                  3----4
+        assertEquals(f.overlap(e), true);
+
+
+        // a:   0----1----2
+        // e:                  3----4
+        assertEquals(a.overlap(e), false);
+
+
+        // e:                  3----4
+        // a:   0----1----2
+        assertEquals(e.overlap(a), false);
     }
 
     @Test
