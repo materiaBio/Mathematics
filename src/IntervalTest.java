@@ -182,6 +182,50 @@ public class IntervalTest {
     @Test
     public void testUnion() {
 
+        Interval a = new Interval(0, 2);
+        Interval b = new Interval(2, 3);
+        Interval c = new Interval(1.7, 2.7);
+        Interval d = new Interval(2.0001, 3);
+
+
+        // a:   0----1----2
+        // b:             2----3
+        assertEquals(a.union(b), new Interval(0,3));
+
+
+        // b:             2----3
+        // a:   0----1----2
+        assertEquals(b.union(a), new Interval(0,3));
+
+
+        // a:   0----1----2
+        // c:          1.7----2.7
+        assertEquals(a.union(c), new Interval(0,2.7));
+
+
+        // c:          1.7----2.7
+        // a:   0----1----2
+        assertEquals(c.union(a), new Interval(0,2.7));
+
+
+        // b:            2----3
+        // c:      1.5----2.5
+        assertEquals(b.union(c), new Interval(1.7,3));
+
+
+        // c:      1.5----2.5
+        // b:            2----3
+        assertEquals(c.union(b), new Interval(1.7,3));
+
+
+        // a:   0----1----2
+        // d:              2.1----3
+        assertEquals(a.union(d), null);
+
+
+        // d:              2.1----3
+        // a:   0----1----2
+        assertEquals(d.union(a), null);
     }
 
     @Test
